@@ -1,6 +1,6 @@
 package com.petproject.whatsdown.dtos;
 
-public class LoginRequestDTO {
+public class SignUpRequestDao {
 
     private String username;
 
@@ -18,4 +18,7 @@ public class LoginRequestDTO {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

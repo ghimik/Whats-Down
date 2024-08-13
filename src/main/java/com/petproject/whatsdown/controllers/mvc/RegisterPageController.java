@@ -1,9 +1,9 @@
 package com.petproject.whatsdown.controllers.mvc;
 
-import com.petproject.whatsdown.dtos.SignUpRequestDTO;
+import com.petproject.whatsdown.dtos.SignUpRequestDao;
 import com.petproject.whatsdown.models.User;
 import com.petproject.whatsdown.services.UserAuthenticationService;
-import io.jsonwebtoken.lang.Strings;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,7 +26,7 @@ public class RegisterPageController {
 
     @PostMapping("/register")
     @ResponseBody
-    public ResponseEntity register(@RequestBody SignUpRequestDTO dto) {
+    public ResponseEntity register(@RequestBody SignUpRequestDao dto) {
         var user = new User();
         user.setUsername(dto.getUsername());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
