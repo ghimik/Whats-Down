@@ -19,4 +19,28 @@ public class ChatRoom {
     @JoinColumn(name = "seconduser")
     @ManyToOne(targetEntity = User.class)
     private User secondUser;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getFirstUser() {
+        return firstUser;
+    }
+
+    public void setFirstUser(User firstUser) {
+        this.firstUser = firstUser;
+    }
+
+    public User getSecondUser() {
+        return secondUser;
+    }
+
+    public void setSecondUser(User secondUser) {
+        this.secondUser = secondUser;
+    }
 }
