@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class ChatMessage {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "\"id\"")
     @SequenceGenerator(name = "chatmessage_id_seq", sequenceName = "chatmessage_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chatmessage_id_seq")
     private Long id;

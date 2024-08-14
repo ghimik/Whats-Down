@@ -61,7 +61,6 @@ public class StaticResourceController {
         }
 
         public ResponseEntity<String> returnResource() {
-            System.out.println(path);
 
             try (InputStream inputStream = new FileSystemResource(path).getInputStream()) {
                 if (inputStream == null) {

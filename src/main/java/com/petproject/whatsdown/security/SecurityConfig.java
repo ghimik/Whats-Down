@@ -12,17 +12,18 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
 
 
@@ -32,7 +33,6 @@ public class SecurityConfig {
             throws Exception {
 
         var authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userDetailsService);
 
         var providerManager = new ProviderManager(authenticationProvider);
@@ -43,13 +43,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/registration").permitAll()
                         .requestMatchers("/static/loginPage/**").permitAll()
                         .requestMatchers("/static/*").permitAll()
-                        .anyRequest().permitAll())
+                        .requestMatchers("/auth/*").permitAll()
+                        .anyRequest().authenticated())
                 .logout(LogoutConfigurer::permitAll)
+                .securityContext(context -> context.securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/home"))
                 .build();
     }
