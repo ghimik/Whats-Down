@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,19 +25,15 @@ public class AuthController {
                 request.getPassword());
 
         Authentication authentication = this.authenticationManager.authenticate(authenticationRequest);
-        if (authentication.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        } else {
+        if (!authentication.isAuthenticated()) {
             throw new BadCredentialsException("Invalid login credentials");
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+        System.out.println("static" + SecurityContextHolder.getContext());
+
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/test")
-    public ResponseEntity<String> test(@RequestBody SignUpRequestDao request) {
-        return ResponseEntity.ok("adsfa");
-    }
 
 }

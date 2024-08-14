@@ -10,12 +10,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.web.context.annotation.SessionScope;
 
 @Configuration
 @EnableWebSecurity
@@ -26,10 +30,9 @@ public class SecurityConfig {
         return NoOpPasswordEncoder.getInstance();
     }
 
-
     @Bean
     public AuthenticationManager authenticationManager(
-			@Autowired UserDetailsService userDetailsService)
+            @Autowired UserDetailsService userDetailsService)
             throws Exception {
 
         var authenticationProvider = new DaoAuthenticationProvider();
@@ -43,19 +46,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                .securityContext(securityContext -> securityContext
+                        .securityContextRepository(new HttpSessionSecurityContextRepository()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login", "/registration").permitAll()
                         .requestMatchers("/static/loginPage/**").permitAll()
                         .requestMatchers("/static/*").permitAll()
                         .requestMatchers("/auth/*").permitAll()
                         .anyRequest().authenticated())
-                .logout(LogoutConfigurer::permitAll)
-                .securityContext(context -> context.securityContextRepository(new HttpSessionSecurityContextRepository()))
-                .formLogin(form -> form.loginPage("/login").defaultSuccessUrl("/home"))
                 .build();
     }
-
-
 }
+
