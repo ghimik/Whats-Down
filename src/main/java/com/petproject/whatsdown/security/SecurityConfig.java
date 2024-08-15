@@ -25,6 +25,7 @@ import org.springframework.web.context.annotation.SessionScope;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // поставить энкодер!
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -50,11 +51,15 @@ public class SecurityConfig {
                         .securityContextRepository(new HttpSessionSecurityContextRepository()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/*").permitAll()
-                        .requestMatchers("/static/loginPage/**").permitAll()
-                        .requestMatchers("/static/*").permitAll()
-                        .requestMatchers("/auth/*").permitAll()
-                        .requestMatchers("/home", "/test").authenticated())
+                        .requestMatchers("/**").permitAll()
+                        //.requestMatchers("/static/**").permitAll()
+                        //.requestMatchers("/static/*").permitAll()
+                        //.requestMatchers("/auth/*").permitAll()
+
+                        //.requestMatchers("/home", "/test").authenticated()
+                        //.requestMatchers("/data/*").authenticated()
+                )
+                .formLogin(login -> login.loginPage("/login"))
                 .build();
     }
 }

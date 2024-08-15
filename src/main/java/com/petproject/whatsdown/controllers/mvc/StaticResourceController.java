@@ -24,7 +24,9 @@ import java.util.stream.Collectors;
 public class StaticResourceController {
 
     @GetMapping("/{pageName}/{type}/{resourceName}")
-    public ResponseEntity<String> resource(@PathVariable String pageName, @PathVariable String type, @PathVariable String resourceName) {
+    public ResponseEntity<String> resource(@PathVariable String pageName,
+                                           @PathVariable String type,
+                                           @PathVariable String resourceName) {
         var path = Paths.get("src/main/resources/static", pageName, type, resourceName).toString();
         ResourceResponseBuilder builder = new ResourceResponseBuilder();
         return builder.path(path).type(type).returnResource();
@@ -32,7 +34,8 @@ public class StaticResourceController {
     }
 
     @GetMapping("/{pageName}/{resourceName}")
-    public ResponseEntity<String> anotherResource(@PathVariable String pageName, @PathVariable String resourceName) {
+    public ResponseEntity<String> anotherResource(@PathVariable String pageName,
+                                                  @PathVariable String resourceName) {
         var path = Paths.get("src/main/resources/static", pageName, resourceName).toString();
         ResourceResponseBuilder builder = new ResourceResponseBuilder();
         return builder.path(path).returnResource();

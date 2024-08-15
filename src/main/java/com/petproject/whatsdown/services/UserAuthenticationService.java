@@ -6,5 +6,5 @@ public interface UserAuthenticationService {
 
     User loadUserByUsername(String userName);
 
-    User registerUser(User user);
+    User registerUser(String username, String password);
 }
