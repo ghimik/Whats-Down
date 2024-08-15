@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @PostMapping()
-    public ResponseEntity<String> test(@RequestBody SignUpRequestDao request) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> test(@RequestBody Object text) {
+        return ResponseEntity.ok(text);
     }
 }
