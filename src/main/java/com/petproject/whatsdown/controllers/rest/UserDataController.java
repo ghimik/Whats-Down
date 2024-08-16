@@ -15,13 +15,11 @@ public class UserDataController {
 
     @Autowired private UserDataManagementService userDataManagementService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/user")
     public ResponseEntity<Object> user() {
-        System.out.println("here!!!!!!!!");
         Object principal;
         try {
-            principal = userDataManagementService.getCurrentUserPrincipal();
+            principal = userDataManagementService.getCurrentUserSecuredPrincipal();
         } catch (Exception e) {
             System.out.println("error: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

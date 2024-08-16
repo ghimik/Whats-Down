@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -43,21 +44,29 @@ public class SecurityConfig {
         providerManager.setEraseCredentialsAfterAuthentication(false);
         return providerManager;
     }
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
+    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .securityContext(securityContext -> securityContext
-                        .securityContextRepository(new HttpSessionSecurityContextRepository()))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+                        .securityContextRepository(securityContextRepository()))
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/**").permitAll()
-                        //.requestMatchers("/static/**").permitAll()
-                        //.requestMatchers("/static/*").permitAll()
-                        //.requestMatchers("/auth/*").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/login", "/login/*").permitAll()
 
-                        //.requestMatchers("/home", "/test").authenticated()
-                        //.requestMatchers("/data/*").authenticated()
+                        .requestMatchers("/static/**").permitAll()
+                        .requestMatchers("/static/*").permitAll()
+
+                        .requestMatchers("/auth/*").permitAll()
+                        .anyRequest().authenticated()
+
                 )
                 .formLogin(login -> login.loginPage("/login"))
                 .build();

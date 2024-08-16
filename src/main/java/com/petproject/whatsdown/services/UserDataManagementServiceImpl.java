@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class UserDataManagementServiceImpl implements UserDataManagementService {
 
     @Override
-    public Object getCurrentUserPrincipal() throws AuthenticationException {
+    public Object getCurrentUserSecuredPrincipal() throws AuthenticationException {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.isAuthenticated()) {
             throw new AuthenticationException("No authorized user found");
         };
-        return authentication.getPrincipal();
+        return ((User)authentication.getPrincipal()).getUsername();
     }
 }

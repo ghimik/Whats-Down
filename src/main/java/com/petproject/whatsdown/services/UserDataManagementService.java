@@ -6,5 +6,5 @@ import org.springframework.security.core.Authentication;
 
 public interface UserDataManagementService {
 
-    public Object getCurrentUserPrincipal() throws AuthenticationException;
+    public Object getCurrentUserSecuredPrincipal() throws AuthenticationException;
 }

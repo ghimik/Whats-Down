@@ -14,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,41 +28,50 @@ public class AuthController {
     @Autowired
     private UserAuthenticationService userAuthenticationService;
 
+    @Autowired
+    private SecurityContextRepository securityContextRepository;
+
     @PostMapping("/signin")
-    public ResponseEntity<Void> signIn(@RequestBody LoginRequestDao loginRequestDao) {
+    public ResponseEntity<Void> signIn(@RequestBody LoginRequestDao loginRequestDao,
+                                       HttpServletRequest request,
+                                       HttpServletResponse response) {
         var authenticationRequest = new UsernamePasswordAuthenticationToken(loginRequestDao.getUsername(),
                 loginRequestDao.getPassword());
 
         // повторяющаяся логика, изменить!
+        //
         Authentication authentication = this.authenticationManager.authenticate(authenticationRequest);
-        if (!authentication.isAuthenticated()) {
-            throw new BadCredentialsException("Invalid login credentials");
-        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        securityContextRepository.saveContext(context, request, response);
+
         System.out.println("sign in ctx while logging in: " + SecurityContextHolder.getContext());
 
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody SignUpRequestDao request) {
+    public ResponseEntity<Void> register(@RequestBody SignUpRequestDao signUpRequestDao,
+                                         HttpServletRequest request,
+                                         HttpServletResponse response) {
         try {
-            userAuthenticationService.registerUser(request.getUsername(), request.getPassword());
+            userAuthenticationService.registerUser(signUpRequestDao.getUsername(),
+                    signUpRequestDao.getPassword());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
         // повторяющаяся логика, изменить!
-        var authenticationRequest = new UsernamePasswordAuthenticationToken(request.getUsername(),
-                request.getPassword());
+        var authenticationRequest = new UsernamePasswordAuthenticationToken(signUpRequestDao.getUsername(),
+                signUpRequestDao.getPassword());
 
         Authentication authentication = this.authenticationManager.authenticate(authenticationRequest);
-        if (!authentication.isAuthenticated()) {
-            throw new BadCredentialsException("Invalid login credentials");
-        }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        System.out.println("static" + SecurityContextHolder.getContext());
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(authentication);
+        securityContextRepository.saveContext(context, request, response);
+
+        System.out.println("in reg: " + SecurityContextHolder.getContext());
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

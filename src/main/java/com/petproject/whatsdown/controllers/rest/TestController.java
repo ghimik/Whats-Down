@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/test")
 public class TestController {
 
-    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping()
     public ResponseEntity<Object> test(@RequestBody Object text) {
         return ResponseEntity.ok(text);
