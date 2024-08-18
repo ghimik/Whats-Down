@@ -1,4 +1,4 @@
-package com.petproject.whatsdown.util;
+package com.petproject.whatsdown.util.resource;
 
 import java.util.Collection;
 import java.util.LinkedList;

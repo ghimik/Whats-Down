@@ -1,4 +1,4 @@
-package com.petproject.whatsdown.util;
+package com.petproject.whatsdown.util.resource;
 
 public class StaticCSSResource extends StaticTextResource {
 

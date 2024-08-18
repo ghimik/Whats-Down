@@ -1,8 +1,8 @@
-package com.petproject.whatsdown.util;
+package com.petproject.whatsdown.util.resource;
 
 import org.springframework.http.ResponseEntity;
 
 public interface ResourceResponseBuilder {
 
-    ResponseEntity getResponse();
+    ResponseEntity<Object> getResponse();
 }

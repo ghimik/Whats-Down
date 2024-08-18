@@ -1,17 +1,13 @@
-package com.petproject.whatsdown.util;
+package com.petproject.whatsdown.util.resource;
 
 import org.apache.commons.io.FilenameUtils;
 
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 
 public abstract class StaticResource<T> {
 
     public static final String CONTENT_TYPE_HEADER = "Content-Type";
-
-    public abstract Type getType();
 
     public abstract String getContentType();
 

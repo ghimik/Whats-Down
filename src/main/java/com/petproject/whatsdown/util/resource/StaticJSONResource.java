@@ -1,4 +1,4 @@
-package com.petproject.whatsdown.util;
+package com.petproject.whatsdown.util.resource;
 
 public class StaticJSONResource extends StaticTextResource {
     public static final String CONTENT_TYPE_JSON_HEADER = "application/json";

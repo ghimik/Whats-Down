@@ -1,11 +1,10 @@
-package com.petproject.whatsdown.util;
+package com.petproject.whatsdown.util.resource;
 
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
@@ -46,7 +45,7 @@ public class ResourceResponseBuilderImpl implements ResourceResponseBuilder {
     }
 
     @Override
-    public ResponseEntity getResponse() {
+    public ResponseEntity<Object> getResponse() {
         Path path = parsePath();
         try (InputStream inputStream = new FileSystemResource(path).getInputStream()) {
             return ResponseEntity
