@@ -1,9 +1,21 @@
-<!DOCTYPE html>
-<html>
-<title>Title page</title>
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-
+    <meta charset="utf-8"/>
+    <link rel="icon" th:href="@{/static/favicon.ico}"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Sign in"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="apple-touch-icon" th:href="@{/static/logo192.png}"/>
+    <link rel="manifest" th:href="@{/static/titlePage/manifest.json}"/>
+    <title>Sign in</title>
+    <script defer="defer" th:src="@{/static/titlePage/js/main.d7bae14a.js}"></script>
+    <link th:href="@{/static/titlePage/css/main.244b8773.css}" rel="stylesheet">
 </head>
-
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
 </body>
 </html>

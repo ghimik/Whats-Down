@@ -49,6 +49,7 @@ public class SecurityConfig {
         return new HttpSessionSecurityContextRepository();
     }
 
+    // бесконечные долбанные перезагрузки
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -60,6 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/login", "/login/*").permitAll()
+                        .requestMatchers("/register", "/register/*").permitAll()
 
                         .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/static/*").permitAll()
@@ -68,7 +70,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
 
                 )
-                .formLogin(login -> login.loginPage("/login"))
                 .build();
     }
 }

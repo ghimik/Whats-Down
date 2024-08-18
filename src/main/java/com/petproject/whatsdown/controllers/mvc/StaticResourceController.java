@@ -41,6 +41,8 @@ public class StaticResourceController {
         return builder.path(path).returnResource();
     }
 
+    // картиночки не отслывются
+
     private class ResourceResponseBuilder {
         private String path;
 
