@@ -8,36 +8,29 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.web.context.annotation.SessionScope;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // поставить энкодер!
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(
-            @Autowired UserDetailsService userDetailsService)
-            throws Exception {
+            @Autowired UserDetailsService userDetailsService) {
 
         var authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userDetailsService);
 
         var providerManager = new ProviderManager(authenticationProvider);
@@ -50,6 +43,8 @@ public class SecurityConfig {
     }
 
     // бесконечные долбанные перезагрузки
+
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -68,12 +63,14 @@ public class SecurityConfig {
                         .requestMatchers("/favicon.ico").permitAll()
                         .requestMatchers("/manifest.json").permitAll()
 
-
-
                         .requestMatchers("/auth/*").permitAll()
                         .anyRequest().authenticated()
 
                 )
+                .logout(logout -> logout
+                        .permitAll()
+                        .logoutUrl("/logout")
+                        .deleteCookies("JSESSIONID"))
                 .build();
     }
 }

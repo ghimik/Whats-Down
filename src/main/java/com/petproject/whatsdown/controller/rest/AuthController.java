@@ -14,9 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -30,7 +31,7 @@ public class AuthController {
     private SecurityContextRepository securityContextRepository;
 
     @PostMapping("/signin")
-    public ResponseEntity<Void> signIn(@RequestBody LoginRequestDao loginRequestDao,
+    public String signIn(@RequestBody LoginRequestDao loginRequestDao,
                                        HttpServletRequest request,
                                        HttpServletResponse response) {
         var authenticationRequest = new UsernamePasswordAuthenticationToken(loginRequestDao.getUsername(),
@@ -46,20 +47,20 @@ public class AuthController {
 
         System.out.println("sign in ctx while logging in: " + SecurityContextHolder.getContext());
 
-        return ResponseEntity.ok().build();
+        return "redirect: /home";
     }
 
     // не работает
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody SignUpRequestDao signUpRequestDao,
+    public String register(@RequestBody SignUpRequestDao signUpRequestDao,
                                          HttpServletRequest request,
                                          HttpServletResponse response) {
         try {
             userAuthenticationService.registerUser(signUpRequestDao.getUsername(),
                     signUpRequestDao.getPassword());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            return "/error";
         }
         // повторяющаяся логика, изменить!
         var authenticationRequest = new UsernamePasswordAuthenticationToken(signUpRequestDao.getUsername(),
@@ -73,6 +74,6 @@ public class AuthController {
 
         System.out.println("in reg: " + SecurityContextHolder.getContext());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return "/home";
     }
 }
