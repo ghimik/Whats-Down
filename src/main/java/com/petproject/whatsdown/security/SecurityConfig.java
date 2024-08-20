@@ -42,7 +42,8 @@ public class SecurityConfig {
         return new HttpSessionSecurityContextRepository();
     }
 
-    // бесконечные долбанные перезагрузки
+    // сохранение входа между сессиями
+
 
 
 

@@ -14,9 +14,45 @@ public class Contact {
 
     @JoinColumn(name = "first")
     @ManyToOne(targetEntity = User.class)
-    private User firstUser;
+    private User first;
 
     @JoinColumn(name = "second")
     @ManyToOne(targetEntity = User.class)
-    private User secondUser;
+    private User second;
+
+    public ChatRoom getChatRoom() {
+        return chatRoom;
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
+
+    @JoinColumn(name = "chatid")
+    @ManyToOne(targetEntity = ChatRoom.class)
+    private ChatRoom chatRoom;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getFirst() {
+        return first;
+    }
+
+    public void setFirst(User first) {
+        this.first = first;
+    }
+
+    public User getSecond() {
+        return second;
+    }
+
+    public void setSecond(User second) {
+        this.second = second;
+    }
 }
