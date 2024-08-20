@@ -1,6 +1,6 @@
 package com.petproject.whatsdown.service;
 
-import com.petproject.whatsdown.model.ChatMessage;
+import com.petproject.whatsdown.model.ChatMessageEntity;
 import com.petproject.whatsdown.model.ChatRoom;
 import com.petproject.whatsdown.model.Contact;
 import com.petproject.whatsdown.repository.ChatMessageRepository;
@@ -11,8 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,7 +37,7 @@ public class ChatMangingServiceImpl implements ChatMangingService {
     }
 
     @Override
-    public Stream<ChatMessage> getAllMessagesBetween(String firstUsername, String secondUsername) {
+    public Stream<ChatMessageEntity> getAllMessagesBetween(String firstUsername, String secondUsername) {
         Contact contact = contactRepository.findByFirstAndSecondOrSecondAndFirst(
                 userRepository.findByUsername(firstUsername),
                 userRepository.findByUsername(secondUsername)
