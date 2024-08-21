@@ -19,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-// ! разделить чаты и контакты
-
 // добавить не одностроннее добавление контактов, возможность кинуть в чс
 // а так же понятия прочитанного или нет сообщения
 

@@ -30,6 +30,7 @@ public class ChatMangingServiceImpl implements ChatMangingService {
         Collection<ContactEntity> contactEntities = contactRepository
                 .findAll(userRepository
                         .findByUsername(userDetails.getUsername())
+                        .getId()
                 );
 
         return contactEntities
@@ -41,8 +42,8 @@ public class ChatMangingServiceImpl implements ChatMangingService {
     @Override
     public Stream<ChatMessageEntity> getAllMessagesBetween(String firstUsername, String secondUsername) {
         ContactEntity contactEntity = contactRepository.findByFirstAndSecondOrSecondAndFirst(
-                userRepository.findByUsername(firstUsername),
-                userRepository.findByUsername(secondUsername)
+                userRepository.findByUsername(firstUsername).getId(),
+                userRepository.findByUsername(secondUsername).getId()
         );
 
         return chatMessageRepository

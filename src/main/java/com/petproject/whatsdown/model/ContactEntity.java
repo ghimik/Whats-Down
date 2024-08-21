@@ -4,7 +4,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "contacts")
+@Table(name = "contact")
 public class ContactEntity implements Contact {
 
     @Id

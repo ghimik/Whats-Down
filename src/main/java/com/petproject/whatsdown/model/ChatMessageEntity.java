@@ -23,10 +23,6 @@ public class ChatMessageEntity implements ChatMessage {
     @ManyToOne(targetEntity = UserEntity.class)
     private UserEntity sender;
 
-    @JoinColumn(name = "receiver")
-    @ManyToOne(targetEntity = UserEntity.class)
-    private UserEntity receiver;
-
     public Long getId() {
         return id;
     }
@@ -59,11 +55,4 @@ public class ChatMessageEntity implements ChatMessage {
         this.sender = sender;
     }
 
-    public UserEntity getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(UserEntity receiver) {
-        this.receiver = receiver;
-    }
 }

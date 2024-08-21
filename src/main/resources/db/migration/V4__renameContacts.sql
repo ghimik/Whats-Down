@@ -1,0 +1,1 @@
+ALTER TABLE Contacts RENAME TO Contact;

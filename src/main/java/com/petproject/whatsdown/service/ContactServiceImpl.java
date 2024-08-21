@@ -36,8 +36,8 @@ public class ContactServiceImpl implements ContactService {
         UserPair userPair = getUserPair(initiatorUsername, receiverUsername);
 
         ContactEntity contactEntity = contactRepository.findByFirstAndSecondOrSecondAndFirst(
-                userPair.getFirst(),
-                userPair.getSecond()
+                userPair.getFirst().getId(),
+                userPair.getSecond().getId()
         );
 
         contactRepository.delete(contactEntity);
@@ -49,7 +49,7 @@ public class ContactServiceImpl implements ContactService {
     public Collection<Contact> getContacts(String username) {
         return contactRepository
                         .findAll(
-                                userRepository.findByUsername(username)
+                                userRepository.findByUsername(username).getId()
                         )
                 .stream()
                 .map(contactEntity -> new Contact() {
