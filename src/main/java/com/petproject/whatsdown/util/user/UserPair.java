@@ -1,26 +1,26 @@
 package com.petproject.whatsdown.util.user;
 
-import com.petproject.whatsdown.model.User;
+import com.petproject.whatsdown.model.UserEntity;
 
 public class UserPair {
 
-    private User first;
+    private UserEntity first;
 
-    private User second;
+    private UserEntity second;
 
-    public User getFirst() {
+    public UserEntity getFirst() {
         return first;
     }
 
-    public void setFirst(User first) {
+    public void setFirst(UserEntity first) {
         this.first = first;
     }
 
-    public User getSecond() {
+    public UserEntity getSecond() {
         return second;
     }
 
-    public void setSecond(User second) {
+    public void setSecond(UserEntity second) {
         this.second = second;
     }
 

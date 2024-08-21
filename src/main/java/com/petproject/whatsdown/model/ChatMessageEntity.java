@@ -20,12 +20,12 @@ public class ChatMessageEntity implements ChatMessage {
     private ChatRoom chatRoom;
 
     @JoinColumn(name = "sender")
-    @ManyToOne(targetEntity = User.class)
-    private User sender;
+    @ManyToOne(targetEntity = UserEntity.class)
+    private UserEntity sender;
 
     @JoinColumn(name = "receiver")
-    @ManyToOne(targetEntity = User.class)
-    private User receiver;
+    @ManyToOne(targetEntity = UserEntity.class)
+    private UserEntity receiver;
 
     public Long getId() {
         return id;
@@ -51,19 +51,19 @@ public class ChatMessageEntity implements ChatMessage {
         this.chatRoom = chatRoom;
     }
 
-    public User getSender() {
+    public UserEntity getSender() {
         return sender;
     }
 
-    public void setSender(User sender) {
+    public void setSender(UserEntity sender) {
         this.sender = sender;
     }
 
-    public User getReceiver() {
+    public UserEntity getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
+    public void setReceiver(UserEntity receiver) {
         this.receiver = receiver;
     }
 }

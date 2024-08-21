@@ -5,7 +5,7 @@ import com.petproject.whatsdown.model.ContactEntity;
 
 import java.util.Collection;
 
-public class ContactsDto {
+public class ChatsDto {
 
     private Collection<Contact> contactEntities;
 
@@ -17,11 +17,9 @@ public class ContactsDto {
         this.contactEntities = contactEntities;
     }
 
-    public ContactsDto(Collection<Contact> contactEntities) {
+    public ChatsDto(Collection<Contact> contactEntities) {
         this.contactEntities = contactEntities;
     }
 
-    public ContactsDto() {}
-
-
+    public ChatsDto() {}
 }

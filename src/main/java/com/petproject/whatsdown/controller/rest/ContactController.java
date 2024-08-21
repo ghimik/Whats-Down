@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.function.BiFunction;
+
 @RestController
 @RequestMapping("/contacts")
 public class ContactController {
@@ -20,32 +22,24 @@ public class ContactController {
 
     @Autowired private ContactService contactService;
 
-    // дублирование логики
 
     @PostMapping("/add/{username}")
     public ResponseEntity<Void> add(@PathVariable String username) {
-        try {
-            contactService.addContact(
-                    userDataManagementService.getCurrentUser().getUsername(),
-                    username
-            );
-        }
-        catch (AuthenticationException exception) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.ok().build();
+        return doubleNameResponse(contactService::addContact,
+                username);
     }
 
     @PostMapping("/remove/{username}")
     public ResponseEntity<Void> remove(@PathVariable String username) {
+        return doubleNameResponse(contactService::removeContact,
+                username);
+    }
+
+    public <T> ResponseEntity<Void> doubleNameResponse(BiFunction<String, String, T> namesConsumer,
+                                                       String secondName) {
         try {
-            contactService.removeContact(
-                    userDataManagementService.getCurrentUser().getUsername(),
-                    username
-            );
+            namesConsumer.apply(userDataManagementService.getCurrentUser().getUsername(),
+                    secondName);
         }
         catch (AuthenticationException exception) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

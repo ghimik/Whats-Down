@@ -17,6 +17,8 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+// возможность удалить ебучий аккоунт
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {

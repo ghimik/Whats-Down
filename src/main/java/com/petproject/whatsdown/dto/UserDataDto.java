@@ -1,6 +1,6 @@
 package com.petproject.whatsdown.dto;
 
-import com.petproject.whatsdown.model.User;
+import com.petproject.whatsdown.model.UserEntity;
 
 public class UserDataDto {
 
@@ -22,7 +22,7 @@ public class UserDataDto {
 
     }
 
-    public static UserDataDto from(User user) {
-        return new UserDataDto(user.getUsername());
+    public static UserDataDto from(UserEntity userEntity) {
+        return new UserDataDto(userEntity.getUsername());
     }
 }

@@ -1,6 +1,6 @@
 package com.petproject.whatsdown.service;
 
-import com.petproject.whatsdown.model.User;
+import com.petproject.whatsdown.model.UserEntity;
 import com.petproject.whatsdown.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +16,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
 
     @Override
-    public User loadUserByUsername(String userName) {
+    public UserEntity loadUserByUsername(String userName) {
         var user = userRepository.findByUsername(userName);
         if (user != null)
             return user;
@@ -24,8 +24,8 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     }
 
     @Override
-    public User registerUser(String username, String password) {
-        var user = new User();
+    public UserEntity registerUser(String username, String password) {
+        var user = new UserEntity();
         user.setUsername(username);
         user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);

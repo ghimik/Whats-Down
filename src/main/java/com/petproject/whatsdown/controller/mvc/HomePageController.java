@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-//убрать разделение статических ресурсов по страницам!
-
 @Controller
 @RequestMapping("/home")
 public class HomePageController {

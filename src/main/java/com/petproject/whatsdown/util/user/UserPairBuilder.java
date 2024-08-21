@@ -1,13 +1,13 @@
 package com.petproject.whatsdown.util.user;
 
-import com.petproject.whatsdown.model.User;
+import com.petproject.whatsdown.model.UserEntity;
 import com.petproject.whatsdown.repository.UserRepository;
 
 public class UserPairBuilder {
 
-    private User first;
+    private UserEntity first;
 
-    private User second;
+    private UserEntity second;
 
     private UserRepository userRepository;
 

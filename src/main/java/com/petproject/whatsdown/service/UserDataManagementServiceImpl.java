@@ -1,6 +1,6 @@
 package com.petproject.whatsdown.service;
 
-import com.petproject.whatsdown.model.User;
+import com.petproject.whatsdown.model.UserEntity;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class UserDataManagementServiceImpl implements UserDataManagementService {
 
     @Override
-    public User getCurrentUser() throws AuthenticationException {
+    public UserEntity getCurrentUser() throws AuthenticationException {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!authentication.isAuthenticated()) {
             throw new AuthenticationException("No authorized user found");
         };
-        return ((User)authentication.getPrincipal());
+        return ((UserEntity)authentication.getPrincipal());
     }
 }

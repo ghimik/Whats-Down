@@ -1,6 +1,6 @@
 package com.petproject.whatsdown.service;
 
-import com.petproject.whatsdown.model.User;
+import com.petproject.whatsdown.model.UserEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 // восстановление паролей
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface UserAuthenticationService extends UserDetailsService {
 
-    User loadUserByUsername(String userName);
+    UserEntity loadUserByUsername(String userName);
 
-    User registerUser(String username, String password);
+    UserEntity registerUser(String username, String password);
 }
