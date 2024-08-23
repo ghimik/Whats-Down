@@ -1,23 +1,22 @@
 package com.petproject.whatsdown.dto;
 
-import com.petproject.whatsdown.model.Contact;
-import com.petproject.whatsdown.model.ContactEntity;
+import com.petproject.whatsdown.util.chatting.ContactData;
 
 import java.util.Collection;
 
 public class ContactsDto {
 
-    private Collection<Contact> contactEntities;
+    private Collection<ContactData> contactEntities;
 
-    public Collection<Contact> getContacts() {
+    public Collection<ContactData> getContacts() {
         return contactEntities;
     }
 
-    public void setContacts(Collection<Contact> contactEntities) {
+    public void setContacts(Collection<ContactData> contactEntities) {
         this.contactEntities = contactEntities;
     }
 
-    public ContactsDto(Collection<Contact> contactEntities) {
+    public ContactsDto(Collection<ContactData> contactEntities) {
         this.contactEntities = contactEntities;
     }
 

@@ -1,21 +1,21 @@
 package com.petproject.whatsdown.dto;
 
-import com.petproject.whatsdown.model.ChatMessage;
+import com.petproject.whatsdown.util.chatting.ChatMessageData;
 
 import java.util.Collection;
 
 public class ChatDto {
-    private Collection<ChatMessage> messages;
+    private Collection<ChatMessageData> messages;
 
-    public Collection<ChatMessage> getMessages() {
+    public Collection<ChatMessageData> getMessages() {
         return messages;
     }
 
-    public void setMessages(Collection<ChatMessage> messages) {
+    public void setMessages(Collection<ChatMessageData> messages) {
         this.messages = messages;
     }
 
-    public ChatDto(Collection<ChatMessage> messages) {
+    public ChatDto(Collection<ChatMessageData> messages) {
         this.messages = messages;
     }
 

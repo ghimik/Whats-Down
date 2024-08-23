@@ -1,8 +1,7 @@
 package com.petproject.whatsdown.service;
 
-import com.petproject.whatsdown.model.ChatMessageEntity;
-import com.petproject.whatsdown.model.ChatRoom;
-import com.petproject.whatsdown.model.Contact;
+import com.petproject.whatsdown.util.chatting.ChatData;
+import com.petproject.whatsdown.util.chatting.ChatMessageData;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -10,7 +9,7 @@ import java.util.stream.Stream;
 
 public interface ChatMangingService {
 
-    Collection<Contact> getAllChats(UserDetails userDetails);
+    Collection<ChatData> getAllChats(UserDetails userDetails);
 
-    Stream<ChatMessageEntity> getAllMessagesBetween(String firstUsername, String secondUsername);
+    Stream<ChatMessageData> getAllMessagesBetween(String firstUsername, String secondUsername);
 }

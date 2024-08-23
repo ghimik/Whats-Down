@@ -1,11 +1,11 @@
 package com.petproject.whatsdown.service;
 
-import com.petproject.whatsdown.model.Contact;
 import com.petproject.whatsdown.model.ContactEntity;
-import com.petproject.whatsdown.model.User;
 import com.petproject.whatsdown.repository.ContactRepository;
 import com.petproject.whatsdown.repository.UserRepository;
+import com.petproject.whatsdown.util.chatting.ContactData;
 import com.petproject.whatsdown.util.user.UserPair;
+import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class ContactServiceImpl implements ContactService {
+
+    @Autowired private UserDataManagementService userDataManagementService;
 
     @Autowired private ContactRepository contactRepository;
 
@@ -46,21 +48,18 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Collection<Contact> getContacts(String username) {
+    public Collection<ContactData> getContacts(String username) {
         return contactRepository
                         .findAll(
                                 userRepository.findByUsername(username).getId()
                         )
                 .stream()
-                .map(contactEntity -> new Contact() {
-                    @Override
-                    public User getFirst() {
-                        return contactEntity.getFirst();
-                    }
-
-                    @Override
-                    public User getSecond() {
-                        return contactEntity.getSecond();
+                .map(contactEntity ->
+                {
+                    try {
+                        return new ContactData(userDataManagementService.getCurrentUser(), contactEntity);
+                    } catch (AuthenticationException e) {
+                        throw new RuntimeException(e);
                     }
                 })
                 .collect(Collectors.toList());

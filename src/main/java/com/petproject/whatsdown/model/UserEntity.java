@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
-public class UserEntity implements User, UserDetails {
+public class UserEntity implements UserDetails {
 
     @Id
     @Column(name = "\"id\"")

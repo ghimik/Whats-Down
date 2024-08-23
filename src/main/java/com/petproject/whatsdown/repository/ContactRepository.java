@@ -12,7 +12,7 @@ import java.util.Collection;
 @Repository
 public interface ContactRepository extends JpaRepository<ContactEntity, Long> {
 
-    @Query( value = "SELECT c " +
+    @Query( value = "SELECT * " +
             "FROM Contact c " +
             "WHERE (c.first = :first AND c.second = :second) " +
             "       OR" +

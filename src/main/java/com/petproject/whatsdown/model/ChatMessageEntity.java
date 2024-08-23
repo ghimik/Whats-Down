@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "chatmessage")
-public class ChatMessageEntity implements ChatMessage {
+public class ChatMessageEntity {
 
     @Id
     @Column(name = "\"id\"")
