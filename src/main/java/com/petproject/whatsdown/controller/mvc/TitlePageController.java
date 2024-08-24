@@ -8,6 +8,6 @@ public class TitlePageController {
 
     @GetMapping("/")
     public String home() {
-        return "index";
+        return "TitlePage";
     }
 }

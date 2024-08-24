@@ -14,6 +14,6 @@ public class HomePageController {
     @GetMapping
     public String home() {
         System.out.println("sign in in home :" + SecurityContextHolder.getContext());
-        return "home";
+        return "HomePage";
     }
 }

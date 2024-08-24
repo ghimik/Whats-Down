@@ -10,7 +10,7 @@ public class RegisterPageController {
 
     @GetMapping
     public String registerPage() {
-        return "registerPage";
+        return "RegisterPage";
     }
 
 

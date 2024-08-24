@@ -14,7 +14,7 @@ public class ResourceResponseBuilderImpl implements ResourceResponseBuilder {
 
     private static final String PATH_SEPARATOR = "/";
 
-    private static final String RESOURCE_PREFIX = "src/main/resources/static";
+    private static final String RESOURCE_PREFIX = "src/main/resources";
 
     private Collection<String> locations;
 

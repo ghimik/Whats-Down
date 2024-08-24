@@ -59,7 +59,7 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/login/*").permitAll()
                         .requestMatchers("/register", "/register/*").permitAll()
 
-                        .requestMatchers("/css/**", "/js/**").permitAll()
+                        .requestMatchers("/static/**").permitAll()
                         .requestMatchers("/sw.js", "/sw.js/**").permitAll()
                         .requestMatchers("/favicon.ico").permitAll()
                         .requestMatchers("/manifest.json").permitAll()

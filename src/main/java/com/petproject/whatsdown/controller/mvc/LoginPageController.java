@@ -14,7 +14,7 @@ public class LoginPageController {
 
     @GetMapping
     public String login() {
-        return "login";
+        return "LoginPage";
     }
 
 
