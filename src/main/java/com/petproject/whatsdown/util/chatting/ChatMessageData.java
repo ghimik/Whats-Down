@@ -9,6 +9,16 @@ public class ChatMessageData {
 
     private UserData sender;
 
+    public UserData getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(UserData receiver) {
+        this.receiver = receiver;
+    }
+
+    private UserData receiver;
+
     public String getText() {
         return text;
     }

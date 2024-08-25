@@ -26,4 +26,5 @@ public interface ContactRepository extends JpaRepository<ContactEntity, Long> {
     Collection<ContactEntity> findAll(@Param("userId") Long userId);
 
 
+
 }

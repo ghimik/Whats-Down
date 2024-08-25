@@ -1,5 +1,7 @@
 package com.petproject.whatsdown.service;
 
+import com.petproject.whatsdown.model.ChatMessageEntity;
+import com.petproject.whatsdown.model.ChatRoom;
 import com.petproject.whatsdown.model.ContactEntity;
 import com.petproject.whatsdown.repository.ChatMessageRepository;
 import com.petproject.whatsdown.repository.ContactRepository;
@@ -51,7 +53,24 @@ public class ChatMangingServiceImpl implements ChatMangingService {
         return chatMessageRepository
                 .findAllByChatRoom(contactEntity.getChatRoom())
                 .map(chatMessageEntity ->
-                        new ChatMessageData(chatMessageEntity.getText(), chatMessageEntity.getSender())
+                        new ChatMessageData(chatMessageEntity.getText(), chatMessageEntity.getSender(),)
                 );
+    }
+
+    @Override
+    public void saveMessage(ChatMessageData message, String firstUsername, String secondUsername) {
+        ContactEntity contactEntity = contactRepository.findByFirstAndSecondOrSecondAndFirst(
+                userRepository.findByUsername(firstUsername).getId(),
+                userRepository.findByUsername(secondUsername).getId()
+        );
+
+        ChatRoom chatRoom = contactEntity.getChatRoom();
+        ChatMessageEntity messageEntity = new ChatMessageEntity();
+        messageEntity.setText(message.getText());
+        messageEntity.setChatRoom(chatRoom);
+        messageEntity.setSender(userRepository.findByUsername(message.getSender().getUsername()));
+        chatMessageRepository.saveAndFlush(messageEntity);
+
+
     }
 }

@@ -12,4 +12,6 @@ public interface ChatMangingService {
     Collection<ChatData> getAllChats(UserDetails userDetails);
 
     Stream<ChatMessageData> getAllMessagesBetween(String firstUsername, String secondUsername);
+
+    void saveMessage(ChatMessageData message, String firstUsername, String secondUsername);
 }
