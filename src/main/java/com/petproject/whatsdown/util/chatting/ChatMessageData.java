@@ -9,6 +9,16 @@ public class ChatMessageData {
 
     private UserData sender;
 
+    private Long chatId;
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
+    }
+
     public UserData getReceiver() {
         return receiver;
     }
@@ -35,9 +45,16 @@ public class ChatMessageData {
         this.sender = sender;
     }
 
-    public ChatMessageData(String text, UserData sender) {
+    public ChatMessageData(String text, UserData sender, UserData receiver) {
         this.text = text;
         this.sender = sender;
+        this.receiver = receiver;
+    }
+
+    public ChatMessageData(String text, UserDetails sender, UserDetails receiver, Long chatId) {
+        this.text = text;
+        this.sender = new UserData(sender.getUsername());
+        this.receiver = new UserData(receiver.getUsername());
     }
 
     public ChatMessageData() {

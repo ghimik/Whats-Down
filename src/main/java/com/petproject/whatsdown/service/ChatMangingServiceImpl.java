@@ -53,7 +53,11 @@ public class ChatMangingServiceImpl implements ChatMangingService {
         return chatMessageRepository
                 .findAllByChatRoom(contactEntity.getChatRoom())
                 .map(chatMessageEntity ->
-                        new ChatMessageData(chatMessageEntity.getText(), chatMessageEntity.getSender(),)
+                        new ChatMessageData(chatMessageEntity.getText(),
+                                chatMessageEntity.getSender(),
+                                contactEntity.getFirst().equals(chatMessageEntity.getSender()) ?
+                                contactEntity.getSecond() : contactEntity.getFirst(),
+                                contactEntity.getChatRoom().getId())
                 );
     }
 
