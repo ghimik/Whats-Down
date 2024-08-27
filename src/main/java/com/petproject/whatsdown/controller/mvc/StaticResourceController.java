@@ -16,6 +16,8 @@ public class StaticResourceController {
     @RequestMapping("/**")
     public ResponseEntity<Object> handleStaticResource(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
+        System.out.println("Static resource path: " + requestURI);
+
 
         String resourcePath = requestURI.startsWith("/") ?
                 requestURI.substring(1) : requestURI;
@@ -32,8 +34,8 @@ public class StaticResourceController {
             builder.addLocation(pathParts[i]);
         }
 
-        builder.addResource(pathParts[pathParts.length - 1]);
 
+        builder.addResource(pathParts[pathParts.length - 1]);
         return builder.build().getResponse();
     }
 }
