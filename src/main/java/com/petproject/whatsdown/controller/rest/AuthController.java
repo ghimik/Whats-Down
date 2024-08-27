@@ -52,8 +52,6 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-    // не работает
-
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody SignUpRequestDao signUpRequestDao,
                                          HttpServletRequest request,

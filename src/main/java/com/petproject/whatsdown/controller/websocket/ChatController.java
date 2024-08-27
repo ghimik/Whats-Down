@@ -14,12 +14,12 @@ public class ChatController {
 
     @Autowired private ChatMangingService chatMangingService;
 
-    @SendTo("/topic/messages}") // на какой брокер отправляем ответ
+    @SendTo("/topic/messages/{chatId}") // на какой брокер отправляем ответ
     @MessageMapping("/sendMessage/{chatId}") // с какого эндпоинта получаем сообщение (/ws/app/sendMessage,
     // так как указан префикс апп и сам клиент настроен на вс)
     public ChatMessageData send(@DestinationVariable Long chatId, ChatMessageData message) {
         System.out.println(chatId);
-        System.out.println(message);
+        System.out.println(message.getText());
 
         chatMangingService.saveMessage(message,
                 message.getSender().getUsername(),
